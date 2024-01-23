@@ -16,6 +16,7 @@ pacman::p_load(
       , RColorBrewer
       , lubridate
       , AmesHousing
+      , tidyverse
       )
 ```
 
@@ -292,13 +293,17 @@ Here are few rules:
 
 So we'll start by doing a little bit of eda to see what variables make a lot of sense. 
 ```{r}
-#One thing I looked at while doing EDA, because the data coincides with the 2008 financial crisis was why housing prices didn't seem to change much over the years at all. What did change was the number of houses sold. Potentially the number of houses sold would be a good variable to include as a 
+#One thing I looked at while doing EDA, because the data coincides with the 2008 financial crisis was why housing prices didn't seem to change much over the years at all. What did change was the number of houses sold. Potentially the number of houses sold would be a good variable to include. 
+
+#ames_raw_2008<- ames_raw_2008 |> group_by(`Yr Sold`) |> summarize(
+#                                      number_sold = n(), .keep
+#)
 
 ```
 
 
 ```{r,eval=FALSE,echo=show_code}
-lmfit_2008<- # ["your model here"] # use ames_raw_2008
+lmfit_2008<- #lm(SalePrice~ Overall Qual+num_sold +# ["your model here"] # use ames_raw_2008
 ```
 
 When you decide on your model use the following to come up with your test loss.
