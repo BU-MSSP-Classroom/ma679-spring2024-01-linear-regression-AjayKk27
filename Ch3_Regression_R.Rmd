@@ -295,9 +295,26 @@ So we'll start by doing a little bit of eda to see what variables make a lot of 
 ```{r}
 #One thing I looked at while doing EDA, because the data coincides with the 2008 financial crisis was why housing prices didn't seem to change much over the years at all. What did change was the number of houses sold. Potentially the number of houses sold would be a good variable to include. 
 
-#ames_raw_2008<- ames_raw_2008 |> group_by(`Yr Sold`) |> summarize(
-#                                      number_sold = n(), .keep
-#)
+ames_raw_2008<- ames_raw_2008 |> group_by(`Yr Sold`) |> mutate(
+                                      number_sold = n()
+)
+ames_raw_2008_1$`Overall Qual`<- factor(ames_raw_2008_1$`Overall Qual`)
+
+
+
+
+#Further, the sale price of the house seems to change in a pronounced manner with the overall quality. However this relationship is not linear but we can put a suitably transformed quality variable into the regression (e.g quality^2). But what is a suitable transformation?
+
+eq = function(x){x*x}
+eq2= function(x){x^1.5}
+eq3= function(x){x^1.7}
+ggplot(data=ames_raw_2008_1, aes(`Overall Qual`, SalePrice/10000))+
+ geom_boxplot()+
+  geom_function(data=ames_raw_2008, aes(x=`Overall Qual`), fun = eq, color = 'red')+
+  geom_function(data=ames_raw_2008, aes(x=`Overall Qual`), fun = eq2, color = 'blue')+
+  geom_function(data=ames_raw_2008, aes(x=`Overall Qual`), fun = eq3, color = 'orange')
+  
+
 
 ```
 
