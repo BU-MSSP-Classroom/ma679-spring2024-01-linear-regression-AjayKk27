@@ -441,16 +441,24 @@ Please write your answer in full sentences.
 
 Your code:
 ```{r,echo=TRUE}
-#
-#
+library(ISLR2)
+auto<- Auto
+
+fit1<- lm(mpg~horsepower, data=auto)
+summary(fit1)
+
+predictedmpg<- 39.935861-0.157845*98
 ```
 
 Your answer:
 
+i. So there does seem to be some relationship between the predictor and response, given that the p values for  are so small. 
+ii. The relationship is strong because the p values that our coefficients are indistinguishable from zero are very small.  
+iii. The response and predictor have a negative relationship. 
+iv. 24.476mpg.  
+
 ~~~
 Please write your answer in full sentences.
-
-
 ~~~
 
 
