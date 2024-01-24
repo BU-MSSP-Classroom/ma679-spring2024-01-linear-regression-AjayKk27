@@ -305,16 +305,18 @@ ames_raw_2008_1$`Overall Qual`<- factor(ames_raw_2008_1$`Overall Qual`)
 
 #Further, the sale price of the house seems to change in a pronounced manner with the overall quality. However this relationship is not linear but we can put a suitably transformed quality variable into the regression (e.g quality^2). But what is a suitable transformation?
 
-eq = function(x){x*x}
-eq2= function(x){x^1.5}
-eq3= function(x){x^1.7}
-ggplot(data=ames_raw_2008_1, aes(`Overall Qual`, SalePrice/10000))+
+eq = function(x){(x*x)*10000}
+eq2= function(x){(x^1.5)*10000}
+eq3= function(x){(x^1.7)*10000}
+ggplot(data=ames_raw_2008_1, aes(`Overall Qual`, SalePrice))+
  geom_boxplot()+
   geom_function(data=ames_raw_2008, aes(x=`Overall Qual`), fun = eq, color = 'red')+
   geom_function(data=ames_raw_2008, aes(x=`Overall Qual`), fun = eq2, color = 'blue')+
   geom_function(data=ames_raw_2008, aes(x=`Overall Qual`), fun = eq3, color = 'orange')
-  
 
+#The question here is which one to pick. x^1.7 might appear to be the best but we might also be guilty of overfitting if we use that. Similarly x^2 seems to overestimate the effect of quality. 
+  
+#So what other variables might be appropriate?
 
 ```
 
