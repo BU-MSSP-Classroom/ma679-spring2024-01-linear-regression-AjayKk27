@@ -376,10 +376,25 @@ pred_2009<-predict(lmfit_2008,newdata=ames_raw_2009)
 calc_loss(pred_2009,ames_raw_2009$SalePrice)
 ```
 
+This is okay but might a log scaled SalePrice model do better? Let's see:
+```{r,eval=FALSE,echo=show_code}
+
+lmfit_2008<- lm(log(SalePrice)~`Overall Qual` +Neighborhood+`Gr Liv Area`, data=ames_raw_2008)# ["your model here"] # use #ames_raw_2008
+```
+
+When you decide on your model use the following to come up with your test loss.
+```{r,eval=FALSE,echo=show_code}
+#Adding my square feet and qual = (Overall Qual) variables to ames_raw_2009:
+
+pred_2009<-exp(predict(lmfit_2008,newdata=ames_raw_2009))
+calc_loss(pred_2009,ames_raw_2009$SalePrice)
+```
+A little better but not that much better. 
+
 Try to answer the following additional questions.
 
 - Does your model indicate a good fit?  If not where is the fit off?
-
+The model R2's indicate a decent fit. The large number of outliers in sales price probably affect the fit. 
 
 Your code:
 ```{r,echo=TRUE}
