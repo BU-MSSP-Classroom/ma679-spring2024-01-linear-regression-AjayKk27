@@ -307,7 +307,7 @@ ames_raw_2008_numHouses$number_sold <- factor(ames_raw_2008_numHouses$number_sol
 ggplot(data=ames_raw_2008_numHouses, aes(number_sold, SalePrice))+
   geom_boxplot()
 
-#Again, probably not. 
+ 
 
 
 #Moving on to housing quality
@@ -345,25 +345,34 @@ ggplot(data=ames_raw_2008,aes(`1st Flr SF`+`2nd Flr SF`, SalePrice))+geom_line()
 
 #This seems like a decent level of complexity. 
 
-ames_raw_2008<- ames_raw_2008 |> mutate(square_ft = `1st Flr SF`+`2nd Flr SF`,
-                                        qual =`Overall Qual`^1.7 )
+ames_raw_2008_2<- ames_raw_2008_2 |> mutate(
+                                        qual =`Overall Qual`^1.7,
+                                        number_houses_sold = n()
+                                        )
 
-fit1<- lm(SalePrice~qual+Neighborhood+square_ft, data=ames_raw_2008)
+fit1<- lm(SalePrice~qual+Neighborhood+`Gr Liv Area`, data=ames_raw_2008_2)
+summary(fit1)
+
+#Can I improve this model? W
 
 ```
 
 
 ```{r,eval=FALSE,echo=show_code}
-lmfit_2008<- lm(SalePrice~qual+Neighborhood+square_ft, data=ames_raw_2008)# ["your model here"] # use #ames_raw_2008
+ames_raw_2008<- ames_raw_2008 |> mutate(
+                                        qual =`Overall Qual`^1.7
+                                        )
+
+lmfit_2008<- lm(SalePrice~qual+Neighborhood+`Gr Liv Area`+number_houses_sold, data=ames_raw_2008)# ["your model here"] # use #ames_raw_2008
 ```
 
 When you decide on your model use the following to come up with your test loss.
 ```{r,eval=FALSE,echo=show_code}
 #Adding my square feet and qual = (Overall Qual) variables to ames_raw_2009:
-ames_raw_2009<- ames_raw_2009 |> mutate(square_ft = `1st Flr SF`+`2nd Flr SF`,
-                                        qual =`Overall Qual`^1.7 )
+ames_raw_2009<- ames_raw_2009 |> mutate(
+                                        qual =`Overall Qual`^1.7)
 
-pred_2009<-exp(predict(lmfit_2008,newdata=ames_raw_2009))
+pred_2009<-predict(lmfit_2008,newdata=ames_raw_2009)
 calc_loss(pred_2009,ames_raw_2009$SalePrice)
 ```
 
