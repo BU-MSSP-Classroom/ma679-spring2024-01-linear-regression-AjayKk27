@@ -363,7 +363,7 @@ ames_raw_2008<- ames_raw_2008 |> mutate(
                                         qual =`Overall Qual`^1.7
                                         )
 
-lmfit_2008<- lm(SalePrice~qual+Neighborhood+`Gr Liv Area`+number_houses_sold, data=ames_raw_2008)# ["your model here"] # use #ames_raw_2008
+lmfit_2008<- lm(SalePrice~qual+Neighborhood+`Gr Liv Area`, data=ames_raw_2008)# ["your model here"] # use #ames_raw_2008
 ```
 
 When you decide on your model use the following to come up with your test loss.
