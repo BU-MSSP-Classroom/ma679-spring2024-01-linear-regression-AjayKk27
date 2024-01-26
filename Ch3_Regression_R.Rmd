@@ -581,8 +581,10 @@ Please write your answer in full sentences.
 
 Your code:
 ```{r,echo=TRUE}
-#
-#
+
+pairs(auto[,c(1:8)])
+
+#Note this seems to be easier to see when the above command is pasted into the console as opposed to run here. 
 ```
 
 Your answer:
@@ -602,6 +604,10 @@ Your code:
 ```{r,echo=TRUE}
 #
 #
+
+auto_without_name <- auto |> select(-name)
+
+cor(auto_without_name)
 ```
 
 Your answer:
@@ -621,10 +627,16 @@ Your code:
 ```{r,echo=TRUE}
 #
 #
+
+fit2<- lm(mpg~cylinders+displacement+horsepower+weight+acceleration+year+origin, data=auto)
+summary(fit2)
 ```
 
 Your answer:
 
+i & ii.. Yes there seems to be a relationship between the predictors and response. Especially in the case of displacement, weight, year and origin because a CI constructed around their estimates does not contain zero.
+
+iii. The coefficient for the year variable suggests that on average, a car that was built a year after another one will on average have a0.75mpg higher mileage .
 ~~~
 Please write your answer in full sentences.
 
@@ -644,9 +656,14 @@ Your code:
 ```{r,echo=TRUE}
 #
 #
+
+plot(fit2)
 ```
 
 Your answer:
+
+We cans ee that there are in fact three points that are large outliers. These are the ones labeled 323, 325 and 327.
+The leverage plot does not identify any points as having outsize influence(high leverage) as all points are within the cook distance boundary. 
 
 ~~~
 Please write your answer in full sentences.
@@ -672,6 +689,8 @@ Please write your answer in full sentences.
 
 
 (f) Try a few different transformations of the variables, such as $log(X)$, $\sqrt{X}$, $X^2$. Comment on your findings.
+
+
 
 
 This question should be answered using the Carseats data set.
