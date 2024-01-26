@@ -539,6 +539,12 @@ Your code:
 ```{r,echo=TRUE}
 #
 #
+x<- auto$horsepower
+y<- auto$mpg
+plot(x,y,
+     xlab = "Horsepower", ylab = "MPG",
+     pch = 19, frame = FALSE)
+abline(fit1, col='red')
 ```
 
 Your answer:
@@ -555,11 +561,13 @@ Please write your answer in full sentences.
 Your code:
 ```{r,echo=TRUE}
 #
-#
+
+plot(fit1)
 ```
 
 Your answer:
 
+We have two issues here - first that the condition of homoscedasticity seems to be violated. Further we can see from the fitted vs residuals plot that the relationship between mpg and horsepower isn't really linear. 
 ~~~
 Please write your answer in full sentences.
 
