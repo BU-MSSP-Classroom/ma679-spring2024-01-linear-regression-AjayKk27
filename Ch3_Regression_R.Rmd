@@ -672,14 +672,18 @@ Please write your answer in full sentences.
 ~~~
 
 (e) Use the * and : symbols to fit linear regression models with interaction effects. Why did you add the interaction?  Explain using the context of the problem.  Do any interactions appear to be statistically significant?  
-
 Your code:
 ```{r,echo=TRUE}
 #
-#
+#I'll use an interaction of displacement with horsepower. For the same displacement, we can see differing horsepowers and potentially we'll see how that affects mileage. 
+
+fit3<- lm(mpg~displacement+horsepower+weight+ horsepower*displacement, data=auto)
+summary(fit3)
 ```
 
 Your answer:
+
+We can see immediately that the displacement:horsepower is statistically significant. 
 
 ~~~
 Please write your answer in full sentences.
@@ -691,6 +695,10 @@ Please write your answer in full sentences.
 (f) Try a few different transformations of the variables, such as $log(X)$, $\sqrt{X}$, $X^2$. Comment on your findings.
 
 
+```{r}
+fit4<- lm(mpg~cylinders^2+displacement+horsepower+weight+acceleration+log(year)+origin, data=auto)
+summary(fit4)
+```
 
 
 This question should be answered using the Carseats data set.
